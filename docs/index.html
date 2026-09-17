@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Soft selection test bench</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet"/>
+  <link href="style.css" rel="stylesheet"/>
+ </head>
+ <body>
+  <main>
+   <h1>Select anything here</h1>
+   <p class="lead" data-selection>Drag across these lines in any direction, bottom to top included. The highlight melts between lines and follows the text wherever it goes: scroll boxes, rotated cards, animations.</p>
+   <div class="controls" role="group" aria-label="Goo effect">
+    <button type="button" id="goo-on" aria-pressed="true">Goo on</button>
+    <button type="button" id="goo-off" aria-pressed="false">Goo off</button>
+   </div>
+   <section>
+    <h2>Colors per element</h2>
+    <p data-selection>This paragraph uses the default color. Select from the middle of it down into the next one to see two colors meet.</p>
+    <p data-selection="#7a5af5">This one sets <code>data-selection="#7a5af5"</code> on the element, so its highlight is violet.</p>
+    <p>This paragraph has no attribute, so it keeps the browser's normal selection.</p>
+    <p data-selection="#0f9d8a" data-selection-oncopy="flash">Select this teal line and copy it with Ctrl+C, Cmd+C or right-click Copy: it flashes white.</p>
+   </section>
+   <section>
+    <h2>Inside a scroll box</h2>
+    <p class="hint">Select a few lines, then scroll the box. The highlight stays on the text and is cut at the box edges.</p>
+    <div class="scroller" data-selection>
+     <p>First line of the scrolling area. Keep reading downward.</p>
+     <p>Second paragraph, a little longer so it wraps onto a second line on most screens.</p>
+     <p>Third paragraph in the middle of the box.</p>
+     <p>Fourth paragraph, still inside the scrolling area.</p>
+     <p>Fifth paragraph near the bottom.</p>
+     <p>Last paragraph of the box.</p>
+    </div>
+   </section>
+   <section>
+    <h2>Transformed text</h2>
+    <p class="hint">Hover the tilted card while something is selected in it. The highlight turns with it.</p>
+    <div class="stage">
+     <div class="tilted" data-selection="#e84a8c">
+      <p>This card is rotated, and it scales up on hover with a bouncy transition.</p>
+      <div class="scroller">
+       <p>A scroll box inside the rotated card.</p>
+       <p>Scroll me while text is selected.</p>
+       <p>The clip edge turns with the card.</p>
+       <p>One more line to scroll to.</p>
+      </div>
+     </div>
+     <div class="skewed" data-selection="#7a5af5">
+      <p>This card is skewed. Its selection keeps the same slanted shape as the text.</p>
+     </div>
+     <div class="tilted spin" data-selection="#0f9d8a" style="transform:none">
+      <p>This card never stops swaying, and the highlight sways with it.</p>
+     </div>
+    </div>
+   </section>
+   <section>
+    <h2>Far down the page</h2>
+    <p data-selection>The old version lost its highlight this far down because the effect had a one-screen-tall drawing area. Select this paragraph to check.</p>
+   </section>
+  </main>
+  <script src="soft_selection.js"></script>
+  <script>
+const	goo = {blur: 6, sharpness: 28, threshold: -12};
+const	selection = soft_selection.start(
+	{
+		color: "#e84a8c",
+		goo: goo,
+		copy_handlers:
+		{
+			flash: function(color, box)
+			{
+				box.style.backgroundColor = "#fff";
+				setTimeout(
+					function()
+					{
+						box.style.backgroundColor = color;
+					},
+					120
+				);
+			}
+		}
+	}
+);
+const	goo_on = document.getElementById("goo-on");
+const	goo_off = document.getElementById("goo-off");
+
+goo_on.addEventListener(
+	"click",
+	function()
+	{
+		selection.set_goo(goo);
+		goo_on.setAttribute("aria-pressed", "true");
+		goo_off.setAttribute("aria-pressed", "false");
+	}
+);
+goo_off.addEventListener(
+	"click",
+	function()
+	{
+		selection.set_goo(false);
+		goo_on.setAttribute("aria-pressed", "false");
+		goo_off.setAttribute("aria-pressed", "true");
+	}
+);
+</script>
+</body>
+</html>

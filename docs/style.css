@@ -1,0 +1,123 @@
+:root {
+	--paper: #f3eef6;
+	--card: #fffdfd;
+	--ink: #231a2b;
+	--muted: #6f6178;
+	--line: #d9cde0;
+	--pink: #e84a8c;
+	--violet: #7a5af5;
+	--teal: #0f9d8a;
+}
+@media (prefers-color-scheme: dark) {
+	:root:not([data-theme="light"]) {
+		--paper: #17121c; --card: #221a29; --ink: #f1e9f5;
+		--muted: #ad9fb6; --line: #3a2e43;
+	}
+}
+:root[data-theme="dark"] {
+	--paper: #17121c; --card: #221a29; --ink: #f1e9f5;
+	--muted: #ad9fb6; --line: #3a2e43;
+}
+* { box-sizing: border-box; }
+body {
+	margin: 0;
+	background: var(--paper);
+	color: var(--ink);
+	font: 18px/1.6 "Source Serif 4", Georgia, serif;
+}
+
+/* Content sits above the highlight layer (z-index 0).
+   Backgrounds inside it would cover the highlight, so the cards are outlined. */
+main { position: relative; z-index: 1; max-width: 920px; margin: 0 auto; padding: 64px 24px 120px; }
+
+[data-selection]::selection,
+[data-selection] *::selection { color: #fff; }
+
+h1 {
+	font: 800 clamp(2.6rem, 8vw, 5.4rem)/0.92 Fraunces, Georgia, serif;
+	letter-spacing: -0.035em;
+	margin: 0 0 22px;
+}
+h2 { font: 600 1.35rem/1.25 Fraunces, Georgia, serif; margin: 0 0 8px; }
+p { margin: 0 0 14px; max-width: 62ch; }
+.lead { font-size: 1.2rem; color: var(--muted); }
+code {
+	font: 0.85em ui-monospace, Menlo, Consolas, monospace;
+	border: 1px solid var(--line); border-radius: 4px; padding: 1px 5px;
+}
+.hint { color: var(--muted); font-size: 0.95rem; }
+
+.controls { display: flex; flex-wrap: wrap; gap: 10px; margin: 28px 0 56px; }
+.controls button {
+	font: 600 1rem/1 "Source Serif 4", Georgia, serif;
+	padding: 12px 18px; border-radius: 10px; cursor: pointer;
+	border: 1.5px solid var(--ink); background: var(--card); color: var(--ink);
+}
+.controls button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.controls button:focus-visible { outline: 3px solid var(--pink); outline-offset: 2px; }
+
+section { margin: 0 0 72px; }
+
+.scroller {
+	height: 190px; overflow: auto; padding: 16px 20px;
+	border: 1.5px solid var(--line); border-radius: 12px;
+}
+
+.stage {
+	display: grid; gap: 40px; padding: 40px 10px;
+	grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+	align-items: center;
+}
+.tilted, .skewed {
+	border: 1.5px solid var(--line); border-radius: 14px;
+	padding: 20px;
+}
+.tilted { transform: rotate(-8deg); transition: transform 600ms cubic-bezier(.3,1.4,.5,1); }
+.tilted:hover { transform: rotate(6deg) scale(1.08); }
+.skewed { transform: skewX(-14deg); }
+.tilted .scroller { height: 120px; margin-top: 10px; }
+
+.spin { animation: sway 5s ease-in-out infinite alternate; }
+@keyframes sway { from { rotate: -12deg; } to { rotate: 12deg; } }
+@media (prefers-reduced-motion: reduce) { .spin { animation: none; } }
+
+/*
+** Editor-style selection (VS Code, Sublime Text).
+** Each line box grows up and down with a copy of its own color, so
+** neighboring lines touch. It doesn't grow sideways, so the highlight
+** stays exactly as wide as the selected letters. The goo filter then melts
+** the lines together and rounds the inner corners too.
+**
+** The goo blur erases shapes thinner than about 10px, so a single narrow
+** letter like "i" is kept at least 10px wide, centered on the letter.
+*/
+.selection_box {
+	transition:
+		left 140ms cubic-bezier(.2, .8, .3, 1),
+		top 140ms cubic-bezier(.2, .8, .3, 1),
+		width 140ms cubic-bezier(.2, .8, .3, 1),
+		height 140ms cubic-bezier(.2, .8, .3, 1),
+		background-color 400ms ease;
+}
+.selection_box::before {
+	content: "";
+	position: absolute;
+	top: -6px;
+	bottom: -6px;
+	left: 50%;
+	width: max(100%, 10px);
+	translate: -50% 0;
+	border-radius: 6px;
+	background: inherit;
+	animation: selection_grow 160ms cubic-bezier(.2, .8, .3, 1);
+}
+@keyframes selection_grow {
+	from { transform: scaleY(0.3); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+	.selection_box { transition: none; }
+	.selection_box::before { animation: none; }
+}
+
+/* A CSS-only flash when the selection is copied. */
+.selection_box[data-copied] { filter: brightness(1.35); }

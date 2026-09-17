@@ -1,33 +1,28 @@
 /******************************************************************************\
-# CSS - SELECTION                                #       Maximum Tension       #
+# soft_selection                                 #       Maximum Tension       #
 ################################################################################
 #                                                #      -__            __-     #
 # Teoman Deniz                                   #  :    :!1!-_    _-!1!:    : #
 # maximum-tension.com                            #  ::                      :: #
 #                                                #  :!:    : :: : :  :  ::::!: #
 # +.....................++.....................+ #   :!:: :!:!1:!:!::1:::!!!:  #
-# : C - Maximum Tension :: Create - 2025/01/14 : #   ::!::!!1001010!:!11!!::   #
+# : C - Maximum Tension :: Create - 2026/09/17 : #   ::!::!!1001010!:!11!!::   #
 # :---------------------::---------------------: #   :!1!!11000000000011!!:    #
-# : License - MIT       :: Update - 2025/04/09 : #    ::::!!!1!!1!!!1!!!::     #
+# : License - MIT       :: Update - 2026/09/17 : #    ::::!!!1!!1!!!1!!!::     #
 # +.....................++.....................+ #       ::::!::!:::!::::      #
 \******************************************************************************/
 
-#SELECTION_CONTAINER
-{
-	           TOP: 0;
-	          LEFT: 0;
-	         WIDTH: 100%;
-	        HEIGHT: 100%;
-	       Z-INDEX: 0;
-	      POSITION: ABSOLUTE;
-	POINTER-EVENTS: NONE;
+/*
+** ES module entry.
+**
+**   import soft_selection from "./soft_selection.mjs";
+**   soft_selection.start({color: "#E84A8C"});
+*/
 
-	-WEBKIT-FILTER: URL("#GOO_EFFECT");
-	        FILTER: URL("#GOO_EFFECT");
-}
+import "./soft_selection.js";
 
-.SELECTION_BOX
-{
-	      POSITION: ABSOLUTE;
-	MIX-BLEND-MODE: UNSET;
-}
+const	soft_selection = globalThis.soft_selection;
+
+export const	start = soft_selection.start;
+export const	stop = soft_selection.stop;
+export default	soft_selection;
