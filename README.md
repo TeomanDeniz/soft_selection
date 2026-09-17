@@ -1,4 +1,6 @@
-# Selection JS
+# Soft Selection JS
+
+## [Live Demo!](https://teomandeniz.github.io/soft_selection/)
 
 Soft, gooey text selection highlights that follow your text everywhere: inside scroll boxes, and on moved, scaled, rotated or skewed elements. Optional animations when the user copies.
 
