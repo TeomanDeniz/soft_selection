@@ -1,4 +1,29 @@
 <!DOCTYPE html>
+<!--#################################-->
+<!--#        Maximum Tension        #-->
+<!--#################################-->
+<!--#\ \ \ \-__\ \ \ \ \ \ __- \ \ \#-->
+<!--# \ : \ \:!1!-_ \ \_-!1!: \ \:\ #-->
+<!--#\ \:: \ \ \ \ \ \ \ \ \ \ \:: \#-->
+<!--# \ :!: \ \:\:: : : \:\ ::::!:\ #-->
+<!--#\ \ :!:: :!:!1:!:!::1:::!!!:\ \#-->
+<!--# \ \::!::!!1001010!:!11!!::\ \ #-->
+<!--#\ \ :!1!!11000000000011!!:\ \ \#-->
+<!--# \ \ ::::!!!1!!1!!!1!!!::\ \ \ #-->
+<!--#\ \ \ \ ::::!::!:::!::::\ \ \ \#-->
+<!--#################################-->
+<!--# . . . Page: index . . . . . . #-->
+<!--# Programmer: Teoman Deniz. . . #-->
+<!--#_______________________________#-->
+<!--#| Copyright | Maximum Tension |#-->
+<!--#|___________|_________________|#-->
+<!--#|   License | MIT             |#-->
+<!--#|___________|_________________|#-->
+<!--#|    Create | 2026/09/17      |#-->
+<!--#|___________|_________________|#-->
+<!--#|    Update | 2026/09/18      |#-->
+<!--#|___________|_________________|#-->
+<!--#################################-->
 <html lang="en">
  <head>
   <meta charset="utf-8"/>
@@ -64,47 +89,47 @@
   </main>
   <script src="soft_selection.js"></script>
   <script>
-const	goo = {blur: 6, sharpness: 28, threshold: -12};
-const	selection = soft_selection.start(
-	{
-		color: "#e84a8c",
-		goo: goo,
-		copy_handlers:
-		{
-			flash: function(color, box)
-			{
-				box.style.backgroundColor = "#fff";
-				setTimeout(
-					function()
-					{
-						box.style.backgroundColor = color;
-					},
-					120
-				);
-			}
-		}
-	}
+const   goo = {blur: 6, sharpness: 28, threshold: -12};
+const   selection = soft_selection.start(
+    {
+        color: "#e84a8c",
+        goo: goo,
+        copy_handlers:
+        {
+            flash: function(color, box)
+            {
+                box.style.backgroundColor = "#fff";
+                setTimeout(
+                    function()
+                    {
+                        box.style.backgroundColor = color;
+                    },
+                    120
+                );
+            }
+        }
+    }
 );
-const	goo_on = document.getElementById("goo-on");
-const	goo_off = document.getElementById("goo-off");
+const   goo_on = document.getElementById("goo-on");
+const   goo_off = document.getElementById("goo-off");
 
 goo_on.addEventListener(
-	"click",
-	function()
-	{
-		selection.set_goo(goo);
-		goo_on.setAttribute("aria-pressed", "true");
-		goo_off.setAttribute("aria-pressed", "false");
-	}
+    "click",
+    function()
+    {
+        selection.set_goo(goo);
+        goo_on.setAttribute("aria-pressed", "true");
+        goo_off.setAttribute("aria-pressed", "false");
+    }
 );
 goo_off.addEventListener(
-	"click",
-	function()
-	{
-		selection.set_goo(false);
-		goo_on.setAttribute("aria-pressed", "false");
-		goo_off.setAttribute("aria-pressed", "true");
-	}
+    "click",
+    function()
+    {
+        selection.set_goo(false);
+        goo_on.setAttribute("aria-pressed", "false");
+        goo_off.setAttribute("aria-pressed", "true");
+    }
 );
 </script>
 </body>
