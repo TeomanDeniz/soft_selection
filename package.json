@@ -1,0 +1,23 @@
+{
+	"name": "soft_selection",
+	"version": "1.0.0",
+	"description": "Text Selection area smoother",
+	"author": "Teoman Deniz",
+	"license": "MIT",
+	"homepage": "https://teomandeniz.github.io/soft_selection/",
+	"main": "soft_selection.js",
+	"module": "soft_selection.mjs",
+	"exports":
+	{
+		".":
+		{
+			"import": "./soft_selection.mjs",
+			"require": "./soft_selection.js",
+			"default": "./soft_selection.js"
+		}
+	},
+	"repository": {"type": "git", "url": "git+https://github.com/TeomanDeniz/soft_selection.git"},
+	"files": ["soft_selection.js", "soft_selection.mjs", "soft_selection.min.js", "soft_selection.min.js.map", "README.md", "LICENSE"],
+	"keywords": ["selection", "soft", "smooth", "animation", "corner", "text"],
+	"sideEffects": true
+}
